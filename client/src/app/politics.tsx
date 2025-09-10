@@ -147,7 +147,7 @@ const Politics = () => {
               <p className="text-xs text-gray-600 mt-1">
                 {activeArticle.excerpt}
               </p>
-              <button>
+              <button className="pt-4 w-[110px] h-[50px] rounded-lg " >
                 <p>Read More</p> <span></span>
               </button>
             </motion.div>
