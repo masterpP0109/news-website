@@ -63,7 +63,7 @@ const Header = () => {
       <div className="flex items-center justify-around border-b-[1px]  border-gray-400 w-[77em]  h-[4rem]   ">
         <div className="flex items-center">
           <DateDisplay />
-             <div className="flex items-center rounded-full justify-center mb-4 w-[60px] h-[60px]">
+             <div className="flex items-center rounded-full justify-center  w-[60px] h-[60px]">
                       <Image
                         src="/images/logo.png.png"
                         alt="logo"
