@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Breaking: Major Political Reform Announced",
+    "content": "In a surprising turn of events, the government has announced sweeping political reforms that promise to reshape the nation's democratic landscape. The reforms include new voting mechanisms, increased transparency in governance, and enhanced citizen participation. Experts are divided on the potential impact, with some praising the initiative as a step towards progress, while others warn of implementation challenges. This development comes at a critical time as the country prepares for upcoming elections.",
+    "excerpt": "Government unveils comprehensive political reforms aimed at strengthening democracy and citizen engagement.",
+    "author": "Sarah Johnson",
+    "category": "politics",
+    "tags": ["politics", "reform", "government", "democracy"],
+    "imageUrl": "/images/trendingArticle.jpg",
+    "published": true,
+    "publishedAt": "2024-09-15T10:00:00.000Z",
+    "createdAt": "2024-09-14T15:30:00.000Z",
+    "updatedAt": "2024-09-15T10:00:00.000Z"
+  },
+  {
+    "title": "Tech Giant Unveils Revolutionary AI Technology",
+    "content": "Leading technology company has just released its latest AI innovation that promises to transform industries worldwide. The new system combines advanced machine learning with quantum computing capabilities, offering unprecedented processing speeds and accuracy. Early adopters in healthcare and finance sectors report significant improvements in efficiency and decision-making processes. Industry analysts predict this could be the biggest breakthrough in AI since the introduction of deep learning.",
+    "excerpt": "Groundbreaking AI technology from tech giant set to revolutionize multiple industries with quantum-enhanced processing.",
+    "author": "Michael Chen",
+    "category": "trending",
+    "tags": ["technology", "AI", "innovation", "quantum computing"],
+    "imageUrl": "/images/featuredArticle2.jpg",
+    "published": true,
+    "publishedAt": "2024-09-14T14:00:00.000Z",
+    "createdAt": "2024-09-13T09:15:00.000Z",
+    "updatedAt": "2024-09-14T14:00:00.000Z"
+  },
+  {
+    "title": "Climate Summit Reaches Historic Agreement",
+    "content": "World leaders have reached a landmark agreement at the annual climate summit, committing to ambitious carbon reduction targets and increased funding for green initiatives. The pact includes binding commitments from 195 countries, with specific timelines for achieving net-zero emissions. Environmental groups have hailed the agreement as a turning point in the global fight against climate change, though critics argue the targets may not be aggressive enough given current scientific projections.",
+    "excerpt": "Global climate agreement sets new standards for environmental protection and sustainable development.",
+    "author": "Emma Rodriguez",
+    "category": "hotSpot",
+    "tags": ["climate", "environment", "global agreement", "sustainability"],
+    "imageUrl": "/images/details.jpg",
+    "published": true,
+    "publishedAt": "2024-09-13T16:30:00.000Z",
+    "createdAt": "2024-09-12T11:45:00.000Z",
+    "updatedAt": "2024-09-13T16:30:00.000Z"
+  },
+  {
+    "title": "Editor's Choice: The Future of Remote Work",
+    "content": "As hybrid work models become the new normal, companies are reevaluating their approach to remote work policies. This in-depth analysis explores the benefits and challenges of distributed teams, including productivity metrics, employee satisfaction, and cost implications. Drawing from recent studies and expert interviews, we examine how successful organizations are adapting to this paradigm shift and what lessons can be learned for the broader workforce.",
+    "excerpt": "Comprehensive analysis of remote work trends and their impact on modern business practices.",
+    "author": "David Thompson",
+    "category": "editors",
+    "tags": ["remote work", "business", "productivity", "work culture"],
+    "imageUrl": "/images/details1.jpg",
+    "published": true,
+    "publishedAt": "2024-09-12T12:00:00.000Z",
+    "createdAt": "2024-09-11T08:20:00.000Z",
+    "updatedAt": "2024-09-12T12:00:00.000Z"
+  },
+  {
+    "title": "Cultural Festival Celebrates Diversity",
+    "content": "The annual cultural festival brought together artists, musicians, and performers from around the world to celebrate human diversity and creativity. Featuring traditional dances, contemporary art installations, and culinary experiences from 50 different countries, the event attracted over 100,000 visitors. Organizers emphasized the importance of cultural exchange in fostering understanding and unity in an increasingly interconnected world.",
+    "excerpt": "International cultural festival showcases global diversity through art, music, and culinary traditions.",
+    "author": "Lisa Park",
+    "category": "featured",
+    "tags": ["culture", "festival", "diversity", "arts"],
+    "imageUrl": "/images/featuredArticles1.jpg",
+    "published": true,
+    "publishedAt": "2024-09-11T18:00:00.000Z",
+    "createdAt": "2024-09-10T14:10:00.000Z",
+    "updatedAt": "2024-09-11T18:00:00.000Z"
+  }
+]

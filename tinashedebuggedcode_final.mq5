@@ -10,6 +10,11 @@
 #property description "Includes proper SuperTrend, risk management"
 #property description "and error handling for live trading"
 
+// Define constants if not available
+#ifndef MODE_MAIN
+#define MODE_MAIN 0
+#endif
+
 CTrade trade;
 
 // -------------------- USER INPUTS ----------------------------------
@@ -128,6 +133,13 @@ int OnInit()
     int symbolCount = StringSplit(SymbolListCSV, ',', SymbolsArray);
     int tfCount = ArraySize(Timeframes);
 
+    // Ensure symbolCount is valid
+    if(symbolCount <= 0)
+    {
+        Print("Error: No symbols found in SymbolListCSV");
+        return(INIT_FAILED);
+    }
+
     // Initialize arrays
     ArrayResize(SymbolsArray, symbolCount);
     ArrayResize(LotSizeForSymbol, symbolCount);
@@ -136,12 +148,37 @@ int OnInit()
     ArrayResize(tradeHistory, symbolCount);
     ArrayResize(superTrendValues, symbolCount * tfCount);
     ArrayResize(cachedIndicators, symbolCount * tfCount);
+    ArrayInitialize(superTrendValues, 0.0);
+    ArrayInitialize(lastSignalTime, 0);
+    ArrayInitialize(lastTradeTime, 0);
+    // Initialize cachedIndicators manually
+    int cacheSize = ArraySize(cachedIndicators);
+    for(int i = 0; i < cacheSize; i++)
+    {
+        if(i < cacheSize)
+        {
+            cachedIndicators[i].lastBarTime = 0;
+            cachedIndicators[i].atr = 0.0;
+            cachedIndicators[i].stValue = 0.0;
+            cachedIndicators[i].ema50 = 0.0;
+            cachedIndicators[i].adx = 0.0;
+            cachedIndicators[i].donchianHigh = 0.0;
+            cachedIndicators[i].donchianLow = 0.0;
+        }
+    }
 
     for(int i = 0; i < symbolCount; i++)
     {
-        string trimmedSymbol = StringTrim(SymbolsArray[i]);
-        if(i < ArraySize(SymbolsArray))
-            SymbolsArray[i] = trimmedSymbol;
+        if(i >= 0 && i < ArraySize(SymbolsArray))
+        {
+            string currentSymbol = SymbolsArray[i];
+            if(currentSymbol != "")
+            {
+                string trimmedSymbol = StringTrim(currentSymbol);
+                if(trimmedSymbol != "")
+                    SymbolsArray[i] = trimmedSymbol;
+            }
+        }
 
         // Check if symbol is tradable
         if(SymbolInfoInteger(SymbolsArray[i], SYMBOL_TRADE_MODE) == SYMBOL_TRADE_MODE_DISABLED)
@@ -190,19 +227,25 @@ SIndicators GetIndicators(const string sym, const ENUM_TIMEFRAMES tf, const int 
     // Check if we have cached values for this bar
     datetime currentBarTime = iTime(sym, tf, 0);
     if(cacheIndex >= 0 && cacheIndex < ArraySize(cachedIndicators) &&
+       ArraySize(cachedIndicators) > 0 &&
+       cachedIndicators[cacheIndex].lastBarTime != 0 &&
        cachedIndicators[cacheIndex].lastBarTime == currentBarTime)
     {
         // Return cached values
-        indicators.atr = cachedIndicators[cacheIndex].atr;
-        indicators.stValue = cachedIndicators[cacheIndex].stValue;
-        indicators.ema50 = cachedIndicators[cacheIndex].ema50;
-        indicators.adx = cachedIndicators[cacheIndex].adx;
-        indicators.donchianHigh = cachedIndicators[cacheIndex].donchianHigh;
-        indicators.donchianLow = cachedIndicators[cacheIndex].donchianLow;
+        if(cacheIndex >= 0 && cacheIndex < ArraySize(cachedIndicators))
+        {
+            indicators.atr = cachedIndicators[cacheIndex].atr;
+            indicators.stValue = cachedIndicators[cacheIndex].stValue;
+            indicators.ema50 = cachedIndicators[cacheIndex].ema50;
+            indicators.adx = cachedIndicators[cacheIndex].adx;
+            indicators.donchianHigh = cachedIndicators[cacheIndex].donchianHigh;
+            indicators.donchianLow = cachedIndicators[cacheIndex].donchianLow;
+        }
 
         // Calculate trend from stored SuperTrend value
         int stIndex = symbolIndex * ArraySize(Timeframes) + tfIndex;
-        if(stIndex >= 0 && stIndex < ArraySize(superTrendValues) && superTrendValues[stIndex][1] != 0)
+        if(stIndex >= 0 && stIndex < ArraySize(superTrendValues) &&
+           ArrayRange(superTrendValues, 1) > 1 && superTrendValues[stIndex][1] != 0)
             indicators.isBull = (superTrendValues[stIndex][1] > 0);
         else
             indicators.isBull = (iClose(sym, tf, 0) > indicators.stValue);
@@ -229,13 +272,20 @@ SIndicators GetIndicators(const string sym, const ENUM_TIMEFRAMES tf, const int 
 
     // Get previous SuperTrend value from history
     int stIndex = symbolIndex * ArraySize(Timeframes) + tfIndex;
-    double previousST = (stIndex >= 0 && stIndex < ArraySize(superTrendValues) && superTrendValues[stIndex][0] != 0) ?
-                        superTrendValues[stIndex][0] : finalLower;
-    int previousTrend = (stIndex >= 0 && stIndex < ArraySize(superTrendValues) && superTrendValues[stIndex][1] != 0) ?
-                        (int)superTrendValues[stIndex][1] : 1;
+    double previousST = finalLower;
+    int previousTrend = 1;
+    if(stIndex >= 0 && stIndex < ArraySize(superTrendValues) &&
+       ArrayRange(superTrendValues, 1) > 2)
+    {
+        if(superTrendValues[stIndex][0] != 0)
+            previousST = superTrendValues[stIndex][0];
+        if(superTrendValues[stIndex][1] != 0)
+            previousTrend = (int)superTrendValues[stIndex][1];
+    }
 
     // Store previous value for next calculation
-    if(stIndex >= 0 && stIndex < ArraySize(superTrendValues))
+    if(stIndex >= 0 && stIndex < ArraySize(superTrendValues) &&
+        ArrayRange(superTrendValues, 1) > 2)
         superTrendValues[stIndex][2] = previousST;
 
     // Calculate current SuperTrend with proper flip logic
@@ -267,7 +317,8 @@ SIndicators GetIndicators(const string sym, const ENUM_TIMEFRAMES tf, const int 
     }
 
     // Store current values for next calculation
-    if(stIndex >= 0 && stIndex < ArraySize(superTrendValues))
+    if(stIndex >= 0 && stIndex < ArraySize(superTrendValues) &&
+        ArrayRange(superTrendValues, 1) > 1)
     {
         superTrendValues[stIndex][0] = indicators.stValue;
         superTrendValues[stIndex][1] = indicators.isBull ? 1 : -1;
@@ -288,7 +339,7 @@ SIndicators GetIndicators(const string sym, const ENUM_TIMEFRAMES tf, const int 
     if(adxHandle != INVALID_HANDLE)
     {
         double adxBuffer[1];
-        if(CopyBuffer(adxHandle, 0, 1, 1, adxBuffer) > 0)
+        if(CopyBuffer(adxHandle, MODE_MAIN, 1, 1, adxBuffer) > 0)
             indicators.adx = adxBuffer[0];
         IndicatorRelease(adxHandle);
     }
@@ -300,7 +351,7 @@ SIndicators GetIndicators(const string sym, const ENUM_TIMEFRAMES tf, const int 
     if(lowestIndex >= 0) indicators.donchianLow = iLow(sym, tf, lowestIndex);
 
     // Cache the values
-    if(cacheIndex >= 0 && cacheIndex < ArraySize(cachedIndicators))
+    if(cacheIndex >= 0 && cacheIndex < ArraySize(cachedIndicators) && ArraySize(cachedIndicators) > 0)
     {
         cachedIndicators[cacheIndex].lastBarTime = currentBarTime;
         cachedIndicators[cacheIndex].atr = indicators.atr;
@@ -319,9 +370,15 @@ SIndicators GetIndicators(const string sym, const ENUM_TIMEFRAMES tf, const int 
 //+------------------------------------------------------------------+
 int GetSymbolIndex(const string sym)
 {
-    for(int i = 0; i < ArraySize(SymbolsArray); i++)
-        if(SymbolsArray[i] == sym)
+    if(sym == "" || ArraySize(SymbolsArray) == 0)
+        return -1;
+
+    int symbolsCount = ArraySize(SymbolsArray);
+    for(int i = 0; i < symbolsCount; i++)
+    {
+        if(i >= 0 && i < symbolsCount && SymbolsArray[i] == sym)
             return i;
+    }
     return -1;
 }
 
@@ -531,7 +588,8 @@ double CalculateLotSize(const string sym, const double riskPercent,
             else
             {
                 // Forex and other instruments
-                tickValue = tickSize * contractSize * SymbolInfoDouble(sym, SYMBOL_TRADE_TICK_VALUE) / point;
+                double baseTickValue = SymbolInfoDouble(sym, SYMBOL_TRADE_TICK_VALUE);
+                tickValue = tickSize * contractSize * baseTickValue / point;
             }
         }
         else
@@ -639,23 +697,26 @@ void CleanOldArrows(const string sym)
     // Find the oldest arrows and remove them (only our arrows)
     datetime oldestTimes[];
     ArrayResize(oldestTimes, total);
+    ArrayInitialize(oldestTimes, 0);
     int count = 0;
 
     for(int i = 0; i < total; i++)
     {
         string name = ObjectName(0, i, -1, OBJ_ARROW);
-        if(StringFind(name, sym + "_") == 0 &&
+        if(name != "" && StringFind(name, sym + "_") == 0 &&
           (StringFind(name, "BUY_") > 0 || StringFind(name, "SELL_") > 0))
         {
             long createTimeLong = 0;
             if(ObjectGetInteger(0, name, OBJPROP_CREATETIME, createTimeLong))
             {
-                oldestTimes[count++] = (datetime)createTimeLong;
+                if(count >= 0 && count < ArraySize(oldestTimes) && ArraySize(oldestTimes) > 0)
+                    oldestTimes[count++] = (datetime)createTimeLong;
             }
             else
             {
                 // If ObjectGetInteger fails, skip this object
-                continue;
+                if(count >= 0 && count < ArraySize(oldestTimes) && ArraySize(oldestTimes) > 0)
+                    oldestTimes[count++] = 0;
             }
         }
     }
@@ -663,30 +724,34 @@ void CleanOldArrows(const string sym)
     if(count <= Max_Arrows_To_Keep) return;
 
     // Sort to find the oldest (ascending order)
-    ArraySort(oldestTimes);
+    if(ArraySize(oldestTimes) > 0)
+        ArraySort(oldestTimes);
     int arrowsToRemove = count - Max_Arrows_To_Keep;
 
     for(int i = 0; i < arrowsToRemove; i++)
     {
-        for(int j = 0; j < total; j++)
+        if(i >= 0 && i < ArraySize(oldestTimes))
         {
-            string name = ObjectName(0, j, -1, OBJ_ARROW);
-            if(StringFind(name, sym + "_") == 0 &&
-              (StringFind(name, "BUY_") > 0 || StringFind(name, "SELL_") > 0))
+            for(int j = 0; j < total; j++)
             {
-                long createTimeLong = 0;
-                if(ObjectGetInteger(0, name, OBJPROP_CREATETIME, createTimeLong))
+                string name = ObjectName(0, j, -1, OBJ_ARROW);
+                if(name != "" && StringFind(name, sym + "_") == 0 &&
+                  (StringFind(name, "BUY_") > 0 || StringFind(name, "SELL_") > 0))
                 {
-                    if((datetime)createTimeLong == oldestTimes[i])
+                    long createTimeLong = 0;
+                    if(ObjectGetInteger(0, name, OBJPROP_CREATETIME, createTimeLong))
                     {
-                        ObjectDelete(0, name);
-                        break;
+                        if((datetime)createTimeLong == oldestTimes[i])
+                        {
+                            ObjectDelete(0, name);
+                            break;
+                        }
                     }
-                }
-                else
-                {
-                    // If ObjectGetInteger fails, skip this object
-                    continue;
+                    else
+                    {
+                        // If ObjectGetInteger fails, skip this object
+                        continue;
+                    }
                 }
             }
         }
@@ -760,7 +825,7 @@ void PlotSignalArrow(const string sym, const datetime time, const double price, 
 bool CanTrade(const string sym)
 {
     int symbolIndex = GetSymbolIndex(sym);
-    if(symbolIndex < 0) return false;
+    if(symbolIndex < 0 || symbolIndex >= ArraySize(lastTradeTime) || ArraySize(lastTradeTime) == 0) return false;
 
     // Check if we've already traded recently
     if(TimeCurrent() - lastTradeTime[symbolIndex] < PeriodSeconds(PERIOD_CURRENT) * Min_Bars_Between_Trades)
@@ -832,9 +897,14 @@ void OnTick()
 {
     double VolatilityMultipliers[] = {Volatility1, Volatility2, Volatility3};
     int tfCount = ArraySize(Timeframes);
+    int volCount = ArraySize(VolatilityMultipliers);
 
-    for(int s = 0; s < ArraySize(SymbolsArray); s++)
+    int symbolsCount = ArraySize(SymbolsArray);
+    for(int s = 0; s < symbolsCount; s++)
     {
+        if(s < 0 || s >= symbolsCount || SymbolsArray[s] == "")
+            continue;
+
         string sym = SymbolsArray[s];
 
         // Check if symbol has enough historical data
@@ -852,8 +922,10 @@ void OnTick()
 
             // Check if we've already processed this bar
             if(signalIndex >= 0 && signalIndex < ArraySize(lastSignalTime) &&
+               lastSignalTime[signalIndex] != 0 &&
                lastSignalTime[signalIndex] == currentTime) continue;
-            lastSignalTime[signalIndex] = currentTime;
+            if(signalIndex >= 0 && signalIndex < ArraySize(lastSignalTime))
+                lastSignalTime[signalIndex] = currentTime;
 
             // Get indicator values
             SIndicators ind = GetIndicators(sym, tf, s, tfIdx);
@@ -961,9 +1033,11 @@ void OnTick()
             if(!CanTrade(sym)) continue;
 
             // Process each volatility multiplier
-            for(int v = 0; v < ArraySize(VolatilityMultipliers); v++)
+            for(int v = 0; v < volCount; v++)
             {
-                double volMultiplier = VolatilityMultipliers[v];
+                if(v >= 0 && v < volCount)
+                {
+                    double volMultiplier = VolatilityMultipliers[v];
                 double lotSize = CalculateLotSize(sym, Risk_Percent, ind.atr, volMultiplier);
 
                 if(lotSize < SymbolInfoDouble(sym, SYMBOL_VOLUME_MIN)) continue;
@@ -1002,9 +1076,10 @@ void OnTick()
                                    isBullFVG ? ORDER_TYPE_BUY : ORDER_TYPE_SELL,
                                    entryPrice, stopLoss, takeProfit, signal.message))
                     {
-                        if(s >= 0 && s < ArraySize(lastTradeTime))
+                        if(s >= 0 && s < ArraySize(lastTradeTime) && ArraySize(lastTradeTime) > 0)
                             lastTradeTime[s] = TimeCurrent();
                     }
+                }
                 }
             }
         }

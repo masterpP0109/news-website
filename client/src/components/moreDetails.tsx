@@ -1,20 +1,24 @@
-import React from 'react';
+import React from "react";
+import Image from "next/image";
 
-const MoreDetails = () => {
+interface CardProps {
+  image: string;
+  title: string;
+ 
+}
+
+const MoreDetails = ({image, title, } : CardProps ) => {
   return (
-    <div className="flex w-full h-[60px] bg-gray-400 items-center " >
-      <div className="flex " >
-        <h1>Travelling Agents For Your</h1>
-
-        <button
-        className=" h-[15px] w-[100px] text-[12px] text-white flex items-center justify-center
-        rounded-[23px] p-4 bg-gray-700  "
-        >
-            See Details
-        </button>
-      </div>
+    <div className="flex w-full h-[60px] relative  items-center ">
+      <Image
+         src={image}
+         alt={title}
+         className="object-cover"
+         fill
+         priority
+      />
     </div>
   );
-}
+};
 
 export default MoreDetails;
