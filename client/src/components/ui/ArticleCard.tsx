@@ -102,7 +102,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       )}
 
       <p className="text-xs text-gray-500">{blog.category}</p>
-      <h5 className="text-[0.7rem] font-bold text-gray-800">{blog.title}</h5>
+      <h5 className="text-[0.7rem] font-bold text-gray-600">{blog.title}</h5>
 
       {showExcerpt && blog.excerpt && (
         <p className="text-xs text-gray-600 mt-1">{blog.excerpt}</p>

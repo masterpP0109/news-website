@@ -18,7 +18,7 @@ const Featured = () => {
 
   if (error) {
     return (
-      <section className="flex flex-col divide-y w-[250px] space-x-4 divide-gray-300 border-[1px] border-r-gray-500 mb-12 px-[1px] border-b-0">
+      <section className="flex flex-col divide-y w-full max-w-sm mx-auto lg:mx-0 space-x-4 divide-gray-300 border border-r-gray-500 mb-12 px-2 border-b-0">
         <ErrorState message={error} onRetry={refetch} />
       </section>
     );
@@ -26,14 +26,14 @@ const Featured = () => {
 
   if (articles.length === 0) {
     return (
-      <section className="flex flex-col divide-y w-[250px] space-x-4 divide-gray-300 border-[1px] border-r-gray-500 mb-12 px-[1px] border-b-0">
+      <section className="flex flex-col divide-y w-full max-w-sm mx-auto lg:mx-0 space-x-4 divide-gray-300 border border-r-gray-500 mb-12 px-2 border-b-0">
         <p className="text-gray-500 p-4">No featured articles available</p>
       </section>
     );
   }
 
   return (
-    <section className="flex flex-col divide-y w-[250px] space-x-4 divide-gray-300 border-[1px] border-r-gray-500 mb-12 px-[1px] border-b-0">
+    <section className="flex flex-col divide-y w-full max-w-sm mx-auto lg:mx-0 space-x-4 divide-gray-300 border border-r-gray-500 mb-12 px-2 border-b-0">
       {articles.map((article) => (
         <ArticleCard
           key={article._id}

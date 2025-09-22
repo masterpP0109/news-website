@@ -12,7 +12,7 @@ const blogSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['politics', 'trending', 'hotSpot', 'editors', 'featured', 'other'],
+    enum: ['politics', 'trending', 'hotSpot', 'editors', 'featured', 'other', 'world', 'sports', 'tech', 'modern', 'swimming', 'boxing', 'basketball', 'football'],
     default: 'other'
   },
   tags: [{ type: String, trim: true }],
@@ -293,44 +293,333 @@ const blogData = [
     createdAt: new Date("2024-09-10T14:10:00.000Z"),
     updatedAt: new Date("2024-09-11T18:00:00.000Z")
   },
+
+  // World Category (5 blogs)
   {
-    title: "Innovation Awards Recognize Excellence",
-    content: "The annual innovation awards ceremony honored groundbreaking achievements across multiple disciplines. From scientific discoveries to social entrepreneurship, the winners represent the cutting edge of human ingenuity and problem-solving. The event highlighted the importance of fostering innovation ecosystems that support creative risk-taking and collaborative problem-solving.",
-    excerpt: "Annual innovation awards celebrate groundbreaking achievements and creative excellence.",
+    title: "Global Trade Agreements Reshaping Economies",
+    content: "New international trade agreements are fundamentally changing how countries conduct business and manage economic relationships. The agreements focus on digital trade, environmental standards, and labor rights, creating a more interconnected global marketplace. Economists predict these changes will boost growth but also require significant adaptation from businesses worldwide.",
+    excerpt: "International trade agreements create new economic opportunities and challenges for global businesses.",
+    author: "Dr. Maria Gonzalez",
+    category: "world",
+    tags: ["trade", "economy", "global", "agreements"],
+    imageUrl: "/images/trendingArticle.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-16T10:00:00.000Z"),
+    createdAt: new Date("2024-09-15T15:30:00.000Z"),
+    updatedAt: new Date("2024-09-16T10:00:00.000Z")
+  },
+  {
+    title: "International Climate Cooperation Advances",
+    content: "Countries around the world are intensifying their cooperation on climate change mitigation, with new partnerships forming between developed and developing nations. Innovative financing mechanisms and technology transfers are accelerating the transition to sustainable energy systems. The collaborative approach marks a significant shift from previous competitive strategies.",
+    excerpt: "Global climate cooperation reaches new heights with innovative partnerships and technology sharing.",
+    author: "Prof. Ahmed Hassan",
+    category: "world",
+    tags: ["climate", "cooperation", "sustainability", "global"],
+    imageUrl: "/images/featuredArticle2.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-14T12:00:00.000Z"),
+    createdAt: new Date("2024-09-13T09:15:00.000Z"),
+    updatedAt: new Date("2024-09-14T12:00:00.000Z")
+  },
+  {
+    title: "Digital Transformation in Global Education",
+    content: "Educational institutions worldwide are embracing digital technologies to enhance learning experiences and expand access to quality education. Online platforms, virtual reality classrooms, and AI-powered tutoring systems are breaking down geographical barriers. The transformation is particularly impactful in developing regions where traditional educational infrastructure has been limited.",
+    excerpt: "Digital technologies revolutionize global education, expanding access and improving learning outcomes.",
+    author: "Dr. Sarah Kim",
+    category: "world",
+    tags: ["education", "digital", "technology", "global"],
+    imageUrl: "/images/details.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-12T14:30:00.000Z"),
+    createdAt: new Date("2024-09-11T11:45:00.000Z"),
+    updatedAt: new Date("2024-09-12T14:30:00.000Z")
+  },
+  {
+    title: "Global Health Initiatives Combat Pandemics",
+    content: "International health organizations are strengthening global pandemic preparedness through enhanced surveillance systems and rapid response mechanisms. New vaccine development platforms and improved international coordination are key components of the strategy. The initiatives aim to prevent future health crises and ensure equitable access to medical interventions worldwide.",
+    excerpt: "International health cooperation strengthens global pandemic preparedness and response capabilities.",
+    author: "Dr. James Mitchell",
+    category: "world",
+    tags: ["health", "pandemic", "global", "preparedness"],
+    imageUrl: "/images/details1.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-10T16:00:00.000Z"),
+    createdAt: new Date("2024-09-09T13:20:00.000Z"),
+    updatedAt: new Date("2024-09-10T16:00:00.000Z")
+  },
+  {
+    title: "Cultural Exchange Programs Foster Understanding",
+    content: "International cultural exchange programs are promoting cross-cultural understanding and building bridges between diverse communities. Art exhibitions, music festivals, and academic collaborations are creating new opportunities for people to learn about different cultures and traditions. These initiatives are particularly important in an era of increasing globalization and cultural diversity.",
+    excerpt: "Cultural exchange programs build bridges between communities and promote global understanding.",
+    author: "Maria Rodriguez",
+    category: "world",
+    tags: ["culture", "exchange", "global", "understanding"],
+    imageUrl: "/images/featuredArticles1.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-08T18:00:00.000Z"),
+    createdAt: new Date("2024-09-07T14:10:00.000Z"),
+    updatedAt: new Date("2024-09-08T18:00:00.000Z")
+  },
+
+  // Tech Category (3 blogs)
+  {
+    title: "Quantum Computing Breakthrough Accelerates Research",
+    content: "Scientists have achieved a major breakthrough in quantum computing, developing more stable qubits that maintain coherence for longer periods. This advancement brings practical quantum computing applications closer to reality, with potential impacts on drug discovery, financial modeling, and artificial intelligence. Research institutions worldwide are racing to build on this foundational discovery.",
+    excerpt: "Quantum computing breakthrough promises revolutionary advances in multiple scientific fields.",
+    author: "Dr. Robert Chen",
+    category: "tech",
+    tags: ["quantum", "computing", "technology", "research"],
+    imageUrl: "/images/8dcbc131d88730b6cc98c50376adc1e41fa4a88d.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-15T11:00:00.000Z"),
+    createdAt: new Date("2024-09-14T16:30:00.000Z"),
+    updatedAt: new Date("2024-09-15T11:00:00.000Z")
+  },
+  {
+    title: "AI Ethics Frameworks Gain Global Adoption",
+    content: "International organizations are developing comprehensive ethical frameworks for artificial intelligence development and deployment. The frameworks address bias mitigation, transparency requirements, and accountability measures. Companies and governments are increasingly adopting these standards to ensure responsible AI development that benefits society while minimizing potential harms.",
+    excerpt: "Global AI ethics frameworks establish standards for responsible artificial intelligence development.",
+    author: "Dr. Lisa Thompson",
+    category: "tech",
+    tags: ["AI", "ethics", "technology", "regulation"],
+    imageUrl: "/images/9d1c816ec08975132090c7235cad45847b2b6e74.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-13T13:30:00.000Z"),
+    createdAt: new Date("2024-09-12T10:45:00.000Z"),
+    updatedAt: new Date("2024-09-13T13:30:00.000Z")
+  },
+  {
+    title: "5G Networks Enable Smart City Innovations",
+    content: "The rollout of 5G networks is enabling revolutionary smart city applications, from autonomous transportation systems to advanced healthcare monitoring. Cities worldwide are leveraging the high-speed, low-latency connectivity to improve efficiency and quality of life. The technology is particularly transformative in traffic management, emergency response, and environmental monitoring.",
+    excerpt: "5G technology powers smart city innovations, transforming urban infrastructure and services.",
     author: "Mark Johnson",
-    category: "featured",
-    tags: ["innovation", "awards", "excellence", "achievement"],
+    category: "tech",
+    tags: ["5G", "smart cities", "technology", "infrastructure"],
+    imageUrl: "/images/9ef702ca7305c919b5a00d44bb32a112413051f4 (1).jpg",
+    published: true,
+    publishedAt: new Date("2024-09-11T15:00:00.000Z"),
+    createdAt: new Date("2024-09-10T12:15:00.000Z"),
+    updatedAt: new Date("2024-09-11T15:00:00.000Z")
+  },
+
+  // Modern Category (3 blogs)
+  {
+    title: "Sustainable Fashion Revolution Gains Momentum",
+    content: "The fashion industry is undergoing a sustainable transformation, with designers and brands adopting eco-friendly materials and ethical production practices. Consumers are increasingly demanding transparency and environmental responsibility from fashion companies. The shift is creating new opportunities for innovation while challenging traditional business models in the industry.",
+    excerpt: "Sustainable fashion movement transforms industry practices and consumer expectations.",
+    author: "Emma Davis",
+    category: "modern",
+    tags: ["fashion", "sustainability", "environment", "ethics"],
+    imageUrl: "/images/7406cb7123a2b62425fceebb60f7e30f241109c3.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-14T10:30:00.000Z"),
+    createdAt: new Date("2024-09-13T15:45:00.000Z"),
+    updatedAt: new Date("2024-09-14T10:30:00.000Z")
+  },
+  {
+    title: "Mental Health Awareness Campaigns Expand",
+    content: "Global mental health awareness campaigns are breaking down stigma and increasing access to mental health services. Innovative approaches combining technology, community support, and professional care are proving effective. The campaigns are particularly impactful in workplace settings and educational institutions, where early intervention can prevent long-term issues.",
+    excerpt: "Mental health awareness campaigns reduce stigma and improve access to support services.",
+    author: "Dr. Sarah Williams",
+    category: "modern",
+    tags: ["mental health", "awareness", "wellness", "support"],
+    imageUrl: "/images/8471e75fe110f1871ae8ab7eafbf883806222f1b (1).jpg",
+    published: true,
+    publishedAt: new Date("2024-09-12T12:15:00.000Z"),
+    createdAt: new Date("2024-09-11T09:30:00.000Z"),
+    updatedAt: new Date("2024-09-12T12:15:00.000Z")
+  },
+  {
+    title: "Plant-Based Diets Transform Food Industry",
+    content: "Plant-based food alternatives are revolutionizing the food industry, with innovative products challenging traditional meat and dairy markets. Advances in food technology are creating more appealing and nutritious plant-based options. The shift is driven by health, environmental, and ethical considerations, with significant implications for agriculture and food systems worldwide.",
+    excerpt: "Plant-based food revolution transforms dietary habits and food industry practices.",
+    author: "Chef Michael Brown",
+    category: "modern",
+    tags: ["food", "plant-based", "health", "environment"],
+    imageUrl: "/images/8471e75fe110f1871ae8ab7eafbf883806222f1b.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-10T14:45:00.000Z"),
+    createdAt: new Date("2024-09-09T11:00:00.000Z"),
+    updatedAt: new Date("2024-09-10T14:45:00.000Z")
+  },
+
+  // Sports Category (5 blogs)
+  {
+    title: "Olympic Games Set New Participation Records",
+    content: "The latest Olympic Games achieved unprecedented levels of participation, with athletes from over 200 countries competing in diverse sporting events. The games showcased remarkable athletic achievements and international cooperation. Innovations in sports technology and training methods contributed to record-breaking performances across multiple disciplines.",
+    excerpt: "Olympic Games achieve record participation and showcase international sporting excellence.",
+    author: "John Martinez",
+    category: "sports",
+    tags: ["olympics", "athletics", "records", "international"],
+    imageUrl: "/images/49910a30f90d7b75d4274fd2610e0c65f8dbea4d.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-16T09:00:00.000Z"),
+    createdAt: new Date("2024-09-15T14:30:00.000Z"),
+    updatedAt: new Date("2024-09-16T09:00:00.000Z")
+  },
+  {
+    title: "Esports Industry Reaches Billion-Dollar Milestone",
+    content: "The esports industry has surpassed the billion-dollar revenue mark, establishing itself as a major entertainment sector. Professional gaming tournaments attract millions of viewers worldwide, with top players earning substantial incomes. The industry's growth is driven by advances in gaming technology and increasing mainstream acceptance of competitive gaming as a legitimate sport.",
+    excerpt: "Esports industry achieves billion-dollar status, transforming competitive gaming into mainstream entertainment.",
+    author: "Alex Chen",
+    category: "sports",
+    tags: ["esports", "gaming", "entertainment", "competition"],
+    imageUrl: "/images/203910a0bc40a9ec4bfe150d416c6182bd82bee1.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-14T11:30:00.000Z"),
+    createdAt: new Date("2024-09-13T16:45:00.000Z"),
+    updatedAt: new Date("2024-09-14T11:30:00.000Z")
+  },
+  {
+    title: "Women's Sports Gain Global Recognition",
+    content: "Women's sports are receiving increased global recognition and investment, with major leagues and international competitions expanding opportunities for female athletes. Improved media coverage and corporate sponsorships are helping to close the gender gap in sports. The movement is empowering women and girls while challenging traditional perceptions of athletic achievement.",
+    excerpt: "Women's sports receive growing global recognition and investment opportunities.",
+    author: "Sarah Johnson",
+    category: "sports",
+    tags: ["women's sports", "equality", "recognition", "empowerment"],
+    imageUrl: "/images/a7f20d2dd05a08e6d6b0690cd0e0ef4e831d8cf6 (1).jpg",
+    published: true,
+    publishedAt: new Date("2024-09-12T13:00:00.000Z"),
+    createdAt: new Date("2024-09-11T10:15:00.000Z"),
+    updatedAt: new Date("2024-09-12T13:00:00.000Z")
+  },
+  {
+    title: "Sports Technology Enhances Performance",
+    content: "Advanced technology is revolutionizing sports performance, from wearable devices tracking athlete metrics to AI-powered training programs. Virtual reality training simulations and biomechanical analysis are helping athletes optimize their techniques and prevent injuries. The integration of technology is making sports more scientific and data-driven than ever before.",
+    excerpt: "Sports technology revolution enhances athlete performance and training methodologies.",
+    author: "Dr. Michael Roberts",
+    category: "sports",
+    tags: ["sports tech", "performance", "training", "innovation"],
+    imageUrl: "/images/a7f20d2dd05a08e6d6b0690cd0e0ef4e831d8cf6 (2).jpg",
+    published: true,
+    publishedAt: new Date("2024-09-10T15:30:00.000Z"),
+    createdAt: new Date("2024-09-09T12:45:00.000Z"),
+    updatedAt: new Date("2024-09-10T15:30:00.000Z")
+  },
+  {
+    title: "Youth Sports Programs Combat Obesity Crisis",
+    content: "Community-based youth sports programs are playing a crucial role in combating childhood obesity and promoting healthy lifestyles. Programs combining physical activity with nutritional education are showing significant results in improving children's health outcomes. The initiatives are particularly effective in underserved communities where access to sports facilities has traditionally been limited.",
+    excerpt: "Youth sports programs effectively combat obesity and promote healthy lifestyles among children.",
+    author: "Dr. Jennifer Lee",
+    category: "sports",
+    tags: ["youth sports", "health", "obesity", "community"],
+    imageUrl: "/images/b0066476786d2d74e854296ab9666b2a9c729a34.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-08T17:00:00.000Z"),
+    createdAt: new Date("2024-09-07T13:15:00.000Z"),
+    updatedAt: new Date("2024-09-08T17:00:00.000Z")
+  },
+
+  // Swimming Category (2 blogs)
+  {
+    title: "Swimming Records Shattered at International Championships",
+    content: "Elite swimmers achieved remarkable performances at the international championships, breaking multiple world records in various events. The victories highlight advances in training techniques, nutrition, and sports science. Young swimmers are particularly impressive, showing the sport's bright future and the effectiveness of modern development programs.",
+    excerpt: "International swimming championships feature record-breaking performances and emerging talent.",
+    author: "Coach David Wilson",
+    category: "swimming",
+    tags: ["swimming", "records", "championships", "athletics"],
+    imageUrl: "/images/c829d06b1c01e9795784bc9c26ad4e4fa967e3f7.jpg",
+    published: true,
+    publishedAt: new Date("2024-09-15T12:00:00.000Z"),
+    createdAt: new Date("2024-09-14T17:30:00.000Z"),
+    updatedAt: new Date("2024-09-15T12:00:00.000Z")
+  },
+  {
+    title: "Open Water Swimming Gains Popularity",
+    content: "Open water swimming is experiencing a surge in popularity, with more people participating in lake, river, and ocean races. The sport offers unique challenges and benefits compared to pool swimming, including navigation skills and environmental awareness. Growing interest is leading to more organized events and improved safety measures for participants.",
+    excerpt: "Open water swimming grows in popularity with increased participation and organized events.",
+    author: "Emma Thompson",
+    category: "swimming",
+    tags: ["open water", "swimming", "outdoor", "fitness"],
+    imageUrl: "/images/logo.png.png",
+    published: true,
+    publishedAt: new Date("2024-09-13T14:30:00.000Z"),
+    createdAt: new Date("2024-09-12T11:45:00.000Z"),
+    updatedAt: new Date("2024-09-13T14:30:00.000Z")
+  },
+
+  // Boxing Category (2 blogs)
+  {
+    title: "Boxing Champions Dominate World Stage",
+    content: "Professional boxers are achieving unprecedented success on the global stage, with champions from diverse backgrounds inspiring new generations. The sport's international appeal continues to grow, with major fights drawing massive audiences worldwide. Advances in training methods and sports medicine are contributing to longer, more successful careers for elite boxers.",
+    excerpt: "Boxing champions achieve global success and inspire international sporting interest.",
+    author: "Mike Rodriguez",
+    category: "boxing",
+    tags: ["boxing", "champions", "international", "competition"],
+    imageUrl: "/images/nw_banner_post02.jpg.png",
+    published: true,
+    publishedAt: new Date("2024-09-14T16:00:00.000Z"),
+    createdAt: new Date("2024-09-13T12:15:00.000Z"),
+    updatedAt: new Date("2024-09-14T16:00:00.000Z")
+  },
+  {
+    title: "Boxing Safety Protocols Enhanced",
+    content: "Boxing governing bodies have implemented enhanced safety protocols to protect fighters and improve the sport's integrity. New medical requirements, concussion protocols, and weight management standards are reducing risks. The changes reflect growing awareness of athlete health and safety in combat sports, setting new industry standards.",
+    excerpt: "Boxing implements enhanced safety protocols to protect athletes and improve sport integrity.",
+    author: "Dr. Lisa Martinez",
+    category: "boxing",
+    tags: ["boxing", "safety", "health", "protocols"],
     imageUrl: "/images/trendingArticle.png",
     published: true,
-    publishedAt: new Date("2024-08-30T19:30:00.000Z"),
-    createdAt: new Date("2024-08-29T15:45:00.000Z"),
-    updatedAt: new Date("2024-08-30T19:30:00.000Z")
+    publishedAt: new Date("2024-09-12T18:30:00.000Z"),
+    createdAt: new Date("2024-09-11T15:45:00.000Z"),
+    updatedAt: new Date("2024-09-12T18:30:00.000Z")
   },
+
+  // Basketball Category (2 blogs)
   {
-    title: "Global Peace Initiative Launched",
-    content: "A coalition of world leaders and humanitarian organizations has launched an ambitious global peace initiative aimed at reducing conflict and promoting sustainable development. The comprehensive program combines diplomatic efforts, economic incentives, and grassroots community engagement to address the root causes of global instability.",
-    excerpt: "Ambitious global peace initiative launched to promote stability and sustainable development worldwide.",
-    author: "Ambassador Thomas Wright",
-    category: "featured",
-    tags: ["peace", "global initiative", "diplomacy", "development"],
+    title: "Basketball Leagues Expand Globally",
+    content: "Professional basketball leagues are expanding internationally, with new teams and competitions emerging in Asia, Europe, and Africa. The globalization is bringing diverse playing styles and increasing the sport's worldwide popularity. International players are gaining recognition in major leagues, creating new opportunities and cultural exchanges in basketball.",
+    excerpt: "Basketball leagues expand globally, bringing diverse talent and increasing international popularity.",
+    author: "Coach James Parker",
+    category: "basketball",
+    tags: ["basketball", "global", "expansion", "international"],
     imageUrl: "/images/logo.png.png",
     published: true,
-    publishedAt: new Date("2024-08-20T16:00:00.000Z"),
-    createdAt: new Date("2024-08-19T12:30:00.000Z"),
-    updatedAt: new Date("2024-08-20T16:00:00.000Z")
+    publishedAt: new Date("2024-09-13T10:00:00.000Z"),
+    createdAt: new Date("2024-09-12T15:30:00.000Z"),
+    updatedAt: new Date("2024-09-13T10:00:00.000Z")
   },
   {
-    title: "Scientific Discovery of the Century",
-    content: "Researchers have announced what may be the scientific discovery of the century, with implications that could revolutionize our understanding of the universe. The breakthrough finding challenges long-held theories and opens new avenues for exploration and technological development. The scientific community is abuzz with excitement and debate.",
-    excerpt: "Groundbreaking scientific discovery promises to revolutionize our understanding of the universe.",
-    author: "Dr. Katherine Brooks",
-    category: "featured",
-    tags: ["science", "discovery", "universe", "breakthrough"],
+    title: "Youth Basketball Programs Develop Talent",
+    content: "Youth basketball development programs are identifying and nurturing young talent worldwide, creating pathways to professional careers. Innovative training methods and international competitions are helping young players develop skills and gain exposure. The programs emphasize fundamentals, sportsmanship, and academic achievement alongside athletic development.",
+    excerpt: "Youth basketball programs develop global talent and create professional pathways.",
+    author: "Sarah Williams",
+    category: "basketball",
+    tags: ["basketball", "youth", "development", "talent"],
     imageUrl: "/images/logo.png.png",
     published: true,
-    publishedAt: new Date("2024-08-15T14:45:00.000Z"),
-    createdAt: new Date("2024-08-14T10:20:00.000Z"),
-    updatedAt: new Date("2024-08-15T14:45:00.000Z")
+    publishedAt: new Date("2024-09-11T12:30:00.000Z"),
+    createdAt: new Date("2024-09-10T09:45:00.000Z"),
+    updatedAt: new Date("2024-09-11T12:30:00.000Z")
+  },
+
+  // Football Category (2 blogs)
+  {
+    title: "Football World Cup Generates Record Viewership",
+    content: "The Football World Cup achieved record global viewership, uniting billions of fans in celebration of the world's most popular sport. The tournament showcased exceptional athletic talent and national pride, with matches broadcast in over 200 countries. The economic impact of the event was substantial, benefiting host nations and the global sports industry.",
+    excerpt: "Football World Cup achieves record viewership and demonstrates sport's global appeal.",
+    author: "Carlos Mendoza",
+    category: "football",
+    tags: ["football", "world cup", "viewership", "global"],
+    imageUrl: "/images/logo.png.png",
+    published: true,
+    publishedAt: new Date("2024-09-15T08:00:00.000Z"),
+    createdAt: new Date("2024-09-14T13:30:00.000Z"),
+    updatedAt: new Date("2024-09-15T08:00:00.000Z")
+  },
+  {
+    title: "Football Technology Improves Game Quality",
+    content: "Advanced technology is enhancing football matches, from video assistant referees to goal-line technology and player tracking systems. These innovations are improving accuracy in decision-making and providing fans with enhanced viewing experiences. The technology is also helping coaches analyze performance and develop more effective training programs.",
+    excerpt: "Football technology enhances game accuracy and provides improved viewing experiences.",
+    author: "Tech Analyst David Brown",
+    category: "football",
+    tags: ["football", "technology", "VAR", "analysis"],
+    imageUrl: "/images/logo.png.png",
+    published: true,
+    publishedAt: new Date("2024-09-13T16:00:00.000Z"),
+    createdAt: new Date("2024-09-12T11:15:00.000Z"),
+    updatedAt: new Date("2024-09-13T16:00:00.000Z")
   }
 ];
 

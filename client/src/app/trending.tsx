@@ -49,9 +49,9 @@ const Trending = () => {
 
   if (loading) {
     return (
-      <section className="flex justify-center">
-        <div className="w-full flex flex-col items-center">
-          <div className="relative h-[330px] w-[440px] mb-3 bg-gray-200 animate-pulse rounded"></div>
+      <section className="flex justify-center px-4">
+        <div className="w-full max-w-md flex flex-col items-center">
+          <div className="relative h-48 sm:h-56 md:h-64 w-full max-w-sm mb-3 bg-gray-200 animate-pulse rounded"></div>
           <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
           <div className="h-6 bg-gray-200 rounded w-1/2 mb-2"></div>
           <div className="flex gap-2">
@@ -104,18 +104,18 @@ const Trending = () => {
         <p className="text-[9px] px-[1px] py-[1px] border border-gray-300 text-gray-500">
           {trend.category}
         </p>
-        <h4 className="text-wrap">{trend.title}</h4>
+        <h4 className="text-wrap text-gray-600 transform ">{trend.title}</h4>
 
         <div className="flex gap-2 text-xs text-gray-500">
           <p>{trend.author}</p>
-          <p>{new Date(trend.publishedAt ).toLocaleDateString()}</p>
+          <span className="hidden sm:inline">•</span>
+          <p>{new Date(trend.publishedAt).toLocaleDateString()}</p>
+          <span className="hidden sm:inline">•</span>
           <p>5 Mins</p>
-
         </div>
         <div className="flex items-center text-center justify-center" >
              <p className="text-[12px] text-gray-500 " >{trend.excerpt || 'Read more about this trending topic...'}</p>
         </div>
-
       </div>
     </section>
   );

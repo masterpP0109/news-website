@@ -7,6 +7,9 @@ import Politics from "@/app/politics";
 import HotSpot from "@/app/hotSpot";
 import Editors from "./editors";
 import WorldTopNews from "@/components/worldTopNews";
+import Sports from "@/components/sports";
+
+import BusinessSideBar from "@/components/businessSideBar";
 
 const page = () => {
   return (
@@ -39,13 +42,17 @@ const page = () => {
         <div>
           <main className="flex  p-4">
           <WorldTopNews/> 
-
+          
+        
           
           </main>
+           <MoreDetails image="/images/featuredArticle2.jpg" title="traveling" />
+             <Sports/>
         </div>
 
         <aside>
-
+        
+         <BusinessSideBar/>   
         </aside>
       </section>
     </div>

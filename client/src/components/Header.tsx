@@ -20,101 +20,104 @@ const Header = () => {
 
 
   return (
-    <header className=" flex flex-col items-center    bg-white shadow-md transition-colors duration-300">
-      <div className="w-[77em] h-[35px] py-2 px-[10em]  flex items-center justify-between  bg-slate-800">
-        <div className="flex items-center text-white  justify-between gap-2">
-          <h6 className="text-[8px] font-extrabold ">Trending</h6>
-          <div className="flex items-center  ">
-            <div className="relative w-[70px] h-[20px] z-auto">
+    <header className="flex flex-col items-center bg-white shadow-md transition-colors duration-300">
+      {/* Top Bar */}
+      <div className="w-full max-w-7xl h-auto min-h-[35px] py-2 px-4 sm:px-6 lg:px-8 flex items-center justify-between bg-slate-800">
+        <div className="flex items-center justify-between gap-2 flex-1">
+          <h6 className="text-xs sm:text-sm font-extrabold text-white">Trending</h6>
+          <div className="flex items-center">
+            <div className="relative w-16 sm:w-20 h-5 sm:h-6">
               <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-transparent opacity-50 rounded-full" />
-
               <div
-                className="w-5 h-5 rounded-full absolute z-[999] bg-rose-400/90 flex items-center justify-center shadow-sm"
+                className="w-4 h-4 sm:w-5 sm:h-5 rounded-full absolute z-10 bg-rose-400/90 flex items-center justify-center shadow-sm"
                 aria-label="Lightning"
               >
-                <Zap className="w-3 h-3 text-white" strokeWidth={3} />
+                <Zap className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" strokeWidth={3} />
               </div>
             </div>
-            <p className="text-[10px] ">
-              Here area brands and designers to look out for next year 2026{" "}
+            <p className="text-xs sm:text-sm text-white ml-2 hidden sm:block">
+              Brands and designers to look out for in 2026
+            </p>
+            <p className="text-xs text-white ml-2 sm:hidden">
+              2026 Trends
             </p>
           </div>
         </div>
 
-        <div className="flex space-x-4">
-          <a href="">
-            <Facebook className="w-3 h-3 text-gray-200 hover:text-blue-400" />
+        <div className="flex space-x-2 sm:space-x-4">
+          <a href="#" className="text-gray-200 hover:text-blue-400 transition-colors">
+            <Facebook className="w-3 h-3 sm:w-4 sm:h-4" />
           </a>
-
-          <a href="">
-            <Twitter className="w-3 h-3 text-gray-200 hover:text-blue-400" />
+          <a href="#" className="text-gray-200 hover:text-blue-400 transition-colors">
+            <Twitter className="w-3 h-3 sm:w-4 sm:h-4" />
           </a>
-
-          <a href="">
-            <Instagram className="w-3 h-3 text-gray-200 hover:text-blue-400" />
+          <a href="#" className="text-gray-200 hover:text-blue-400 transition-colors">
+            <Instagram className="w-3 h-3 sm:w-4 sm:h-4" />
           </a>
-
-          <a href="">
-            <Linkedin className="w-3 h-3 text-gray-200 hover:text-blue-400" />
+          <a href="#" className="text-gray-200 hover:text-blue-400 transition-colors">
+            <Linkedin className="w-3 h-3 sm:w-4 sm:h-4" />
           </a>
         </div>
       </div>
 
-      <div className="flex items-center justify-around border-b-[1px]  border-gray-400 w-[77em]  h-[4rem]   ">
-        <div className="flex items-center">
+      {/* Main Header */}
+      <div className="flex items-center justify-between border-b border-gray-400 w-full max-w-7xl h-16 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-4">
           <DateDisplay />
              <div className="flex items-center rounded-full justify-center  w-[60px] h-[60px]">
-                      <Image
-                        src="/images/logo.png.png"
-                        alt="logo"
-                        width={60}
-                        height={60}
+            <Image
+              src="/images/logo.png.png"
+              alt="logo"
+              width={60}
+              height={60}
                         className="object-cover rounded-[1px]"
-                        priority
-                      />
-                    </div>
+              priority
+            />
+          </div>
         </div>
 
-        <div>
-           {status === 'loading' ? (
-             <div className="flex items-center gap-2">
-               <div className="w-5 flex items-center justify-center h-5 rounded-full border-[0.4px] border-gray-600">
-                 <User className="w-5 h-5 text-gray-600" />
-               </div>
-               <p className="text-[12px] font-semibold text-gray-600">Loading...</p>
-             </div>
-           ) : session ? (
-             <div className="flex items-center gap-2">
-               <div className="w-5 flex items-center justify-center h-5 rounded-full border-[0.4px] border-gray-600">
-                 <User className="w-5 h-5 text-gray-600" />
-               </div>
-               <div className="flex flex-col">
-                 <p className="text-[12px] font-semibold text-gray-600">{session.user?.name}</p>
-                 <p className="text-[10px] text-gray-500 capitalize">{session.user?.role}</p>
-               </div>
-               <button
-                 onClick={() => signOut()}
-                 className="ml-2 text-gray-600 hover:text-gray-800"
-                 title="Sign out"
-               >
-                 <LogOut className="w-4 h-4" />
-               </button>
-             </div>
-           ) : (
-             <Link href="/login" className="flex items-center gap-2">
-               <div className="w-5 flex items-center justify-center h-5 rounded-full border-[0.4px] border-gray-600">
-                 <User className="w-5 h-5 text-gray-600" />
-               </div>
-               <p className="text-[12px] font-semibold text-gray-600">Sign in</p>
-             </Link>
-           )}
-         </div>
+        {/* User Section */}
+        <div className="hidden md:block">
+          {status === 'loading' ? (
+            <div className="flex items-center gap-2">
+              <div className="w-5 flex items-center justify-center h-5 rounded-full border border-gray-600">
+                <User className="w-5 h-5 text-gray-600" />
+              </div>
+              <p className="text-sm font-semibold text-gray-600">Loading...</p>
+            </div>
+          ) : session ? (
+            <div className="flex items-center gap-2">
+              <div className="w-5 flex items-center justify-center h-5 rounded-full border border-gray-600">
+                <User className="w-5 h-5 text-gray-600" />
+              </div>
+              <div className="flex flex-col">
+                <p className="text-sm font-semibold text-gray-600">{session.user?.name}</p>
+                <p className="text-xs text-gray-500 capitalize">{session.user?.role}</p>
+              </div>
+              <button
+                onClick={() => signOut()}
+                className="ml-2 text-gray-600 hover:text-gray-800 transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <Link href="/login" className="flex items-center gap-2">
+              <div className="w-5 flex items-center justify-center h-5 rounded-full border border-gray-600">
+                <User className="w-5 h-5 text-gray-600" />
+              </div>
+              <p className="text-sm font-semibold text-gray-600">Sign in</p>
+            </Link>
+          )}
+        </div>
 
-        <main className="p-6">
-          <Button variant="default" className="bg-rose-500/90 rounded-[3px] ">
+        {/* Subscribe Button */}
+        <div className="hidden md:block">
+          <Button variant="default" className="bg-rose-500/90 hover:bg-rose-600 rounded-md px-4 py-2">
             Subscribe
           </Button>
-        </main>
+        </div>
       </div>
 
       <div className="flex items-center justify-around w-full">
@@ -312,134 +315,126 @@ const Header = () => {
             </div>
           </div>
         )}
-
-        <nav className="hidden md:flex space-x-6">
-            <div className="relative">
-              <button
-                className="flex items-center font-bold text-blue-900 text-[10px] hover:text-rose-400/90"
-                onMouseEnter={() => setShowHomeDropdown(true)}
-                onMouseLeave={() => setShowHomeDropdown(false)}
-              >
-                Home <span className="ml-1 text-[10px]">∨</span>
-              </button>
-              {showHomeDropdown && (
-                <div
-                  className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
-                  onMouseEnter={() => setShowHomeDropdown(true)}
-                  onMouseLeave={() => setShowHomeDropdown(false)}
-                >
-                  <Link href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    Latest News
-                  </Link>
-                  <Link href="/trending" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    Trending
-                  </Link>
-                  <Link href="/featured" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    Featured
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <Link
-              href="/about"
-            >
-             <p className="text-blue-900 hover:text-rose-400/90   font-bold text-[10px]">
-            About Us
-          </p>
-            </Link>
-        
-
-         <div className="relative">
-           <button
-             className="flex items-center font-bold text-blue-900 text-[10px] hover:text-rose-400/90"
-             onMouseEnter={() => setShowFeaturesDropdown(true)}
-             onMouseLeave={() => setShowFeaturesDropdown(false)}
-           >
-             Features<span className="ml-1 text-[10px]">∨</span>
-           </button>
-           {showFeaturesDropdown && (
-             <div
-               className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
-               onMouseEnter={() => setShowFeaturesDropdown(true)}
-               onMouseLeave={() => setShowFeaturesDropdown(false)}
-             >
-               <Link href="/features" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Premium Content
-               </Link>
-               <Link href="/newsletter" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Newsletter
-               </Link>
-               <Link href="/archives" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Archives
-               </Link>
-             </div>
-           )}
-         </div>
-
-         <div className="relative">
-           <button
-             className="flex items-center font-bold text-blue-900 text-[10px] hover:text-rose-400/90"
-             onMouseEnter={() => setShowCategoriesDropdown(true)}
-             onMouseLeave={() => setShowCategoriesDropdown(false)}
-           >
-             Categories <span className="ml-1 text-[10px]">∨</span>
-           </button>
-           {showCategoriesDropdown && (
-             <div
-               className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
-               onMouseEnter={() => setShowCategoriesDropdown(true)}
-               onMouseLeave={() => setShowCategoriesDropdown(false)}
-             >
-               <Link href="/categories/politics" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Politics
-               </Link>
-               <Link href="/categories/trending" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Trending
-               </Link>
-               <Link href="/categories/hotSpot" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Hot Spot
-               </Link>
-               <Link href="/categories/editors" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Editors
-               </Link>
-               <Link href="/categories/featured" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                 Featured
-               </Link>
-             </div>
-           )}
-         </div>
-       
-        <Link
-        href='/contact'
-        >
-              <p className=" text-blue-900 hover:text-rose-400/90  font-bold  text-[10px]">
-            Contact
-          </p>
+{/* Desktop Navigation */}
+<nav className="hidden lg:flex items-center space-x-6">
+  <div className="relative">
+    <button
+      className="flex items-center font-semibold text-blue-900 text-sm hover:text-rose-400 transition-colors"
+      onMouseEnter={() => setShowHomeDropdown(true)}
+      onMouseLeave={() => setShowHomeDropdown(false)}
+    >
+      Home <span className="ml-1">▼</span>
+    </button>
+    {showHomeDropdown && (
+      <div
+        className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
+        onMouseEnter={() => setShowHomeDropdown(true)}
+        onMouseLeave={() => setShowHomeDropdown(false)}
+      >
+        <Link href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Latest News
         </Link>
+        <Link href="/trending" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Trending
+        </Link>
+        <Link href="/featured" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Featured
+        </Link>
+      </div>
+    )}
+  </div>
 
-        {session && (
-          <Link
-            href={session.user.role === 'superadmin' ? '/superadmin' : session.user.role === 'admin' ? '/admin' : '/user'}
-          >
-            <p className=" text-blue-900 hover:text-rose-400/90  font-bold  text-[10px]">
-              Dashboard
-            </p>
-          </Link>
-        )}
+  <Link href="/about" className="font-semibold text-blue-900 hover:text-rose-400 transition-colors text-sm">
+    About Us
+  </Link>
 
-        </nav>
+  <div className="relative">
+    <button
+      className="flex items-center font-semibold text-blue-900 text-sm hover:text-rose-400 transition-colors"
+      onMouseEnter={() => setShowFeaturesDropdown(true)}
+      onMouseLeave={() => setShowFeaturesDropdown(false)}
+    >
+      Features <span className="ml-1">▼</span>
+    </button>
+    {showFeaturesDropdown && (
+      <div
+        className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
+        onMouseEnter={() => setShowFeaturesDropdown(true)}
+        onMouseLeave={() => setShowFeaturesDropdown(false)}
+      >
+        <Link href="/features" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Premium Content
+        </Link>
+        <Link href="/newsletter" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Newsletter
+        </Link>
+        <Link href="/archives" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Archives
+        </Link>
+      </div>
+    )}
+  </div>
 
-          <div className="hidden md:flex items-center border-0 rounded gap-2 overflow-hidden">
-             <input
-               type="text"
-               placeholder="Search here..."
-               className="px-4 py-1 w-32 text-sm focus:outline-none placeholder:text-[11px]"
-               value={searchQuery}
-               onChange={(e) => setSearchQuery(e.target.value)}
-             />
-           <Search className="w-5 h-5 text-gray-400 " />
-           </div>
+  <div className="relative">
+    <button
+      className="flex items-center font-semibold text-blue-900 text-sm hover:text-rose-400 transition-colors"
+      onMouseEnter={() => setShowCategoriesDropdown(true)}
+      onMouseLeave={() => setShowCategoriesDropdown(false)}
+    >
+      Categories <span className="ml-1">▼</span>
+    </button>
+    {showCategoriesDropdown && (
+      <div
+        className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50"
+        onMouseEnter={() => setShowCategoriesDropdown(true)}
+        onMouseLeave={() => setShowCategoriesDropdown(false)}
+      >
+        <Link href="/categories/politics" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Politics
+        </Link>
+        <Link href="/categories/trending" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Trending
+        </Link>
+        <Link href="/categories/hotSpot" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Hot Spot
+        </Link>
+        <Link href="/categories/editors" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Editors
+        </Link>
+        <Link href="/categories/featured" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+          Featured
+        </Link>
+      </div>
+    )}
+  </div>
+
+  <Link href="/contact" className="font-semibold text-blue-900 hover:text-rose-400 transition-colors text-sm">
+    Contact
+  </Link>
+
+  {session && (
+    <Link
+      href={session.user.role === 'superadmin' ? '/superadmin' : session.user.role === 'admin' ? '/admin' : '/user'}
+      className="font-semibold text-blue-900 hover:text-rose-400 transition-colors text-sm"
+    >
+      Dashboard
+    </Link>
+  )}
+</nav>
+
+{/* Search Bar - Desktop */}
+<div className="hidden lg:flex items-center border border-gray-300 rounded-md overflow-hidden bg-white">
+  <input
+    type="text"
+    placeholder="Search here..."
+    className="px-3 py-2 w-48 text-sm focus:outline-none"
+    value={searchQuery}
+    onChange={(e) => setSearchQuery(e.target.value)}
+  />
+  <button className="px-3 py-2 bg-gray-100 hover:bg-gray-200 transition-colors">
+    <Search className="w-4 h-4 text-gray-600" />
+  </button>
+</div>
       </div>
 
     </header>
