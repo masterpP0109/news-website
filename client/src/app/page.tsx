@@ -10,6 +10,7 @@ import WorldTopNews from "@/components/worldTopNews";
 import Sports from "@/components/sports";
 
 import BusinessSideBar from "@/components/businessSideBar";
+import SignUp from "@/components/signUp";
 
 const page = () => {
   return (
@@ -55,6 +56,7 @@ const page = () => {
          <BusinessSideBar/>   
         </aside>
       </section>
+      <SignUp/> 
     </div>
   );
 };

@@ -7,13 +7,13 @@ import { ArticleCard } from '@/components/ui/ArticleCard';
 
 const Featured = () => {
   const { blogs: articles, loading, error, refetch } = useBlogs({
-    endpoint: '/api/blogs/category/featured',
+    endpoint: '/api/blogs/category/Featured',
     published: true,
-    limit: 2
+    limit: 3
   });
 
   if (loading) {
-    return <ArticleSkeleton count={2} />;
+    return <ArticleSkeleton count={3} />;
   }
 
   if (error) {

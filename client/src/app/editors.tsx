@@ -8,7 +8,7 @@ import { ArticleCard } from '@/components/ui/ArticleCard';
 
 const Editors = () => {
   const { blogs: articles, loading, error } = useBlogs({
-    endpoint: '/api/blogs/category/editors',
+    endpoint: '/api/blogs/category/Editors',
     published: true,
     limit: 4
   });

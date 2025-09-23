@@ -8,9 +8,9 @@ import { ArticleCard } from '@/components/ui/ArticleCard';
 
 const Sports = () => {
   const { blogs: articles } = useBlogs({
-    endpoint: '/api/blogs/category/sports',
+    endpoint: '/api/blogs/category/Sports,Swimming,Boxing,Basketball,Football',
     published: true,
-    limit: 10
+    limit: 5
   });
 
 

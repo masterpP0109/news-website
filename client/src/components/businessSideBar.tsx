@@ -49,15 +49,7 @@ const BusinessSideBar = () => {
                          priority
                        />
         </div>
-         <div className="flex flex-col divide-y divide-gray-300 mb-12 px-3 border-b-0">
-          {topStories.map((story) => (
-            <ArticleCard
-              key={story._id}
-              blog={story}
-              variant="sidebar"
-            />
-          ))}
-        </div>
+       
       </div>
     </div>
   );

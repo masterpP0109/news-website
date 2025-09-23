@@ -22,7 +22,7 @@ const HotSpot = () => {
   useEffect(() => {
     const fetchHotSpotData = async () => {
       try {
-        const response = await fetch('/api/blogs/category/hotSpot?published=true&limit=3');
+        const response = await fetch('/api/blogs/category/HotSpot?published=true&limit=3');
         if (!response.ok) {
           throw new Error('Failed to fetch hotspot articles');
         }

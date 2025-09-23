@@ -22,7 +22,7 @@ const Trending = () => {
   useEffect(() => {
     const fetchTrending = async () => {
       try {
-        const response = await fetch('/api/blogs/category/trending?published=true&limit=10');
+        const response = await fetch('/api/blogs/category/Trending?published=true&limit=10');
         if (!response.ok) {
           throw new Error('Failed to fetch trending articles');
         }
@@ -104,7 +104,7 @@ const Trending = () => {
         <p className="text-[9px] px-[1px] py-[1px] border border-gray-300 text-gray-500">
           {trend.category}
         </p>
-        <h4 className="text-wrap text-gray-600 transform ">{trend.title}</h4>
+        <h4 className="font-extrabold text-[28px] leading-[33.6px] tracking-normal text-center align-middle capitalize text-[#183354]">{trend.title}</h4>
 
         <div className="flex gap-2 text-xs text-gray-500">
           <p>{trend.author}</p>

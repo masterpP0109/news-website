@@ -31,7 +31,7 @@ const Politics = () => {
   useEffect(() => {
     const fetchPoliticsData = async () => {
       try {
-        const response = await fetch('/api/blogs/category/politics?published=true&limit=10');
+        const response = await fetch('/api/blogs/category/Politics?published=true&limit=10');
         if (!response.ok) {
           throw new Error('Failed to fetch politics articles');
         }

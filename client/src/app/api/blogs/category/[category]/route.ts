@@ -16,7 +16,8 @@ export async function GET(
     const skip = parseInt(searchParams.get('skip') || '0');
 
     const resolvedParams = await params;
-    const filter: { category: string; published?: boolean } = { category: resolvedParams.category };
+    const categories = resolvedParams.category.split(',');
+    const filter: { category: { $in: string[] }; published?: boolean } = { category: { $in: categories } };
 
     if (published !== null) filter.published = published === 'true';
 

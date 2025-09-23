@@ -8,7 +8,7 @@ import { ArticleCard } from '@/components/ui/ArticleCard';
 
 const WorldTopNews = () => {
   const { blogs: articles } = useBlogs({
-    endpoint: '/api/blogs/category/world',
+    endpoint: '/api/blogs/category/World,Tech,Politics,Modern',
     published: true,
     limit: 10
   });
